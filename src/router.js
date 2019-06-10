@@ -12,17 +12,18 @@ export default new Router({
         {
           path: 'films',
           name: 'film',
-          component: () => import('./views/Index/film.vue')
+          component: () => import('./views/Index/film.vue'),
+          meta: {
+            tabIndex: 0
+          }
         },
         {
           path: 'cinemas',
           name: 'cinema',
-          component: () => import('./views/Index/cinema.vue')
-        },
-        {
-          path: 'center',
-          name: 'center',
-          component: () => import('./views/Index/center.vue')
+          component: () => import('./views/Index/cinema.vue'),
+          meta: {
+            tabIndex: 1
+          }
         },
         {
           path: '',
@@ -34,6 +35,11 @@ export default new Router({
       path: '/city',
       name: 'city',
       component: () => import('./views/City/index.vue')
-    }
+    },
+    {
+      path: '/mines',
+      name: 'mine',
+      component: () => import('./views/Index/mine.vue')
+    },
   ]
 })

@@ -8,12 +8,14 @@ import './styles/base.less'
 // import 'vant/lib/index.css'
 // Vue.use(vant)
 
-import { Swipe, SwipeItem, Tab, Tabs } from 'vant'
+import { Swipe, SwipeItem, Tab, Tabs,Tabbar, TabbarItem  } from 'vant'
 Vue
   .use(Swipe)
   .use(SwipeItem)
   .use(Tab)
   .use(Tabs)
+  .use(Tabbar)
+  .use(TabbarItem)
 
 Vue.config.productionTip = false
 

@@ -7,15 +7,15 @@ http.defaults.timeout = 10000
 
 http.interceptors.response.use(response => {
   let res = response.data
-  if (res.status === 0) {
+  // if (res.status === 200) {
     // 接口真正成功
     return res
-  } else {
+  // } else {
     // 接口后台逻辑有bug
-    Toast(res.msg)
-  }
-}, error => {
-  Toast(error.message)
+//     Toast(res.msg)
+//   }
+// }, error => {
+//   Toast(error.message)
 })
 
 export default http

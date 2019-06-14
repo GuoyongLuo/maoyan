@@ -4,13 +4,12 @@ import router from './router'
 import store from './store'
 import './styles/base.less'
 
-
 // import Vant from 'vant';
 // import 'vant/lib/index.css';
 
 // Vue.use(Vant);
 
-import { Swipe, SwipeItem, Tab, Tabs,Tabbar, TabbarItem,DropdownMenu, DropdownItem  } from 'vant'
+import { Swipe, SwipeItem, Tab, Tabs, Tabbar, TabbarItem, DropdownMenu, DropdownItem, Toast } from 'vant'
 Vue
   .use(Swipe)
   .use(SwipeItem)
@@ -20,6 +19,7 @@ Vue
   .use(TabbarItem)
   .use(DropdownMenu)
   .use(DropdownItem)
+  .use(Toast)
 
 Vue.config.productionTip = false
 

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-index-cinema">
     <div class="top">
       <h1 class="nav-header">影院</h1>
       <div class="gray-bg topbar-bg">
@@ -7,12 +7,18 @@
           <span class="city-name">深圳</span>
           <i class="city-entry-arrow"></i>
         </div>
-        <div class="search-entry search-input" data-type="cinema">
+        <router-link
+          class="search-entry search-input"
+          :to="{
+          name:'search',
+          } "
+          tag="div"
+        >
           <img
             src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAAAXNSR0IArs4c6QAAAwFJREFUSA3FVs1qU0EUTibBRQiCRF3UB3BTcFHwJ0XRJ+gDhDaQ5vcJ3PgCfYL80AYSyQP4BIKQiosuhLoQXOjCbqQIJUgoyY3fdzNnmCRzk3uvBQfmzrlzzvm+OTNzz7mJxH9qyTC83W733mQyeTKbzbbQc8lk8hL9Ip1OfyqVSr/CYCzbBBKDQHU6nX2MZfQ8HNWyM949LOAU/bharb7F6DlsnFNOYhDmp9NpGx7bTi/35HkqlaphAadu9eLsCjFIS57nNRHlLct0AnmIiL5ivETPQf8Q4y56Gt1v0F8rpRog78pc0LhATFJEemIZXwHoKJvNNguFwm9r3hcHg8Gd0WjUwEJfY+K26BH54SZyQ8ztBcB7K9IzAO01Go2fAhg0NpvNB9C9Q9+hjY781bpt9y8MyBTP1CZFpC/CkJKIdrSHyMUmiKPxXBeSJvOb2mq1DiDLRbqCvFer1f7QIGzT9nuwpz/bNnZxfy6uPv0VYWvKouKZho1UfGTUkR/JOyI3uDIno2JygMEzPTHhRRJlnFH78yvglueJ78JRzEhQyFkMXbfX5Rg0p/2HWi/4K+YKq9qSWf2dymvs0cax8W1AEuesCSaHm2gGZwnfYCuszhhh1l6EMYohGJwlfANF4gt5w+qYBv+52Tg2vg2sWNowIVVll2nQNogqa3/mcDZP48/frKdiPcWqpKKkmXstfWRR+/uFg7hB9VpSpikMTPg690YmpR/834gjiI9FXh79IoEzUUibn6GUtHnG3Bslbbbb7QxIfwDjriY5r9frj0Aux7jALSnTYxGH0bXW7gDkQ9jIdaRfLFLCfEefUXA1UxapvKl6bBF1EXUZAa0sYIFYyBFt7D8QHBu/kuebyFeINXnsf65KpfIR94WXqrSO3ElMB33hDrBNh5DX/mVCf4It7ctFwntyE3kgsbXaRL/fvz8ejx8DMPR/9SbyUMT2IqLIa8mjAMWxdZB/y2QyT80/cRzQMD78lNDKOHOa84fwZbFYtCtiGJj4Noy81+uZcvkXH+aXwmK6+EsAAAAASUVORK5CYII="
           >
           <span>搜影院</span>
-        </div>
+        </router-link>
       </div>
       <van-dropdown-menu>
         <van-dropdown-item v-model="value1" :options="option1"/>
@@ -20,7 +26,7 @@
         <van-dropdown-item v-model="value2" :options="option3"/>
       </van-dropdown-menu>
     </div>
-    <Cinema :list="cinemaList" class="cinema"/>
+    <Cinema :list="cinemaList" class="cinema" id="cc" ref="scrollCinema"/>
   </div>
 </template>
 <script>
@@ -28,6 +34,7 @@ import { mapActions, mapState } from "vuex";
 import Cinema from "@/components/cinema.vue";
 
 export default {
+  name: "cinema",
   data() {
     return {
       value1: 0,
@@ -51,39 +58,51 @@ export default {
     };
   },
   computed: {
-    ...mapState("cinema", ["cinemaList"])
+    ...mapState("cinema", ["cinemaList", "loading"])
   },
   methods: {
-    ...mapActions("cinema", ["getCinemaList"])
+    ...mapActions("cinema", ["getCinemaList"]),
+    onScroll() {
+      let scrollHeight = document.getElementById("cc").scrollHeight;
+      let scrollTop = document.getElementById("cc").scrollTop;
+      let clientHeight = document.getElementById("cc").clientHeight;
+      if (scrollHeight - clientHeight - scrollTop < 100) {
+        if (!this.loading) {
+          this.getCinemaList(true);
+        }
+      }
+    }
   },
   created() {
-    this.getCinemaList();
+    this.getCinemaList(true);
+    window.addEventListener("scroll", this.onScroll, true);
   },
   components: {
     Cinema
+  },
+  deactivated() {
+    window.removeEventListener("scroll", this.onScroll, true);
+  },
+  activated() {
+    window.addEventListener("scroll", this.onScroll, true);
   }
 };
 </script>
-<style lang="less">
-html {
-  height: 100%;
+<style lang="less" scoped>
+.page-index-cinema {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
-body {
-  font-size: 14px;
-  height: 100%;
-  position: relative;
-}
-.top{
-  height:135px;
+.top {
+  height: 135px;
   width: 100%;
-  position: absolute;
-  top: 0;
 }
-.cinema{
+.cinema {
+  flex: 1;
+  overflow-y: auto;
   display: block;
-  position: absolute;
-  top: 145px;
-  overflow-y: scroll;
 }
 .nav-header {
   display: block;
@@ -152,6 +171,4 @@ body {
     }
   }
 }
-
 </style>
-

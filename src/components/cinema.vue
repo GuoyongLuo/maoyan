@@ -1,8 +1,15 @@
 <template>
   <div id="cinema">
-    <div class="item mb-line-b" data-id="23768"
+    <router-link  class="item mb-line-b"
       v-for="item in list"
       :key="item.id"
+      tag="div"
+      :to="{
+        name:'detail',
+        params:{
+          cinemaId:item.id
+        }
+      }"
     >
       <div class="title-block box-flex middle">
         <div class="title line-ellipsis">
@@ -31,7 +38,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </router-link>
   </div>
 </template>
 <script>
@@ -42,16 +49,22 @@ export default {
     }
   },
   methods: {
-    get(){
+    get () {
       console.log(this.list)
     }
   },
-  mounted() {
+  mounted () {
     this.get()
   },
-};
+  watch: {
+    list(newVal,oldVal){
+      console.log(newVal)
+    }
+  },
+
+}
 </script>
-<style lang="less">
+<style lang="less" scoped>
 @import '~@/styles/common/mixins.less';
 body {
   font-size: 14px;

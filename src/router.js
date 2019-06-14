@@ -41,5 +41,15 @@ export default new Router({
       name: 'mine',
       component: () => import('./views/Index/mine.vue')
     },
+    {
+      path: '/detail/:cinemaId',
+      name: 'detail',
+      component: () => import('./views/Detail/index.vue')
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: () => import('./views/Search/index.vue')
+    }
   ]
 })

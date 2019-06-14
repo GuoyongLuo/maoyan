@@ -2,7 +2,7 @@ import axios from 'axios'
 import { Toast } from 'vant'
 const http = axios.create()
 
-http.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'http://m.maoyan.com/ajax/' : 'http://m.maoyan.com/ajax/'
+http.defaults.baseURL = process.env.NODE_ENV === 'production' ? 'localhost:8080' : 'localhost:8080'
 http.defaults.timeout = 10000
 
 http.interceptors.response.use(response => {

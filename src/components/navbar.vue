@@ -8,7 +8,6 @@
       <span>{{nav.name}}</span>
       <i :class="['iconfont', nav.icon]" slot="icon"></i>
     </van-tabbar-item>
-    
   </van-tabbar>
 </template>
 

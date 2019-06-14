@@ -37,6 +37,11 @@ export default new Router({
       component: () => import('./views/City/index.vue')
     },
     {
+      path: '/login',
+      name: 'login',
+      component: () => import('./views/Index/login.vue')
+    },
+    {
       path: '/mines',
       name: 'mine',
       component: () => import('./views/Index/mine.vue')

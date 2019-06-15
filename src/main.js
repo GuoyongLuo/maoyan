@@ -7,7 +7,7 @@ import './styles/base.less'
 // import Vant from 'vant';
 // import 'vant/lib/index.css';
 
-import { Swipe, SwipeItem, Tab, Tabs,Tabbar, TabbarItem, List , DropdownMenu, DropdownItem, Toast} from 'vant'
+import { Swipe, SwipeItem, Tab, Tabs,Tabbar, TabbarItem, List , DropdownMenu, DropdownItem, Toast,NavBar,Search,Picker } from 'vant'
 Vue
   .use(Swipe)
   .use(SwipeItem)
@@ -19,6 +19,11 @@ Vue
   .use(DropdownMenu)
   .use(DropdownItem)
   .use(Toast)
+  .use(NavBar)
+  .use(Search)
+  .use(Picker)
+  
+  
 
 Vue.config.productionTip = false
 

@@ -44,7 +44,7 @@ export default new Router({
     {
       path: '/mines',
       name: 'mine',
-      component: () => import('./views/Index/mine.vue')
+      component: () => import('./views/Index/login.vue')
     },
     {
       path: '/detail/:cinemaId',
